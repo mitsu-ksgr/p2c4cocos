@@ -20,7 +20,7 @@ Convert the ParticleSystem.plist to source codes for cocos2d-x v3.x!
 
 # Installation
 ```sh
-$ git clone git@github.com:mitsuaki-n/p2c4cocos.git
+$ git clone https://github.com/mitsuaki-n/p2c4cocos
 ```
 
 # How to use
