@@ -13,7 +13,7 @@
 
 using namespace cocos2d;
 
-bool {ClassName}::initWithTotalParticles(int number_of_particles)
+bool {Namespace}{ClassName}::initWithTotalParticles(int number_of_particles)
 {{
     if(!CCParticleSystemQuad::initWithTotalParticles({TotalParticles}))
         return false;

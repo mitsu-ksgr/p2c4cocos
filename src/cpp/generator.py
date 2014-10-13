@@ -88,6 +88,11 @@ def _generate_header(plist, options) :
 
 ################################################################################
 #   Generate C++ implements.
+def _gen_cpp_namespace(namespace) :
+    if namespace is None or namespace == '':
+        return ''
+    return namespace if namespace[-2:] == '::' else namespace + '::'
+
 def _gen_cpp_emitter_code(plist) :
     # Gravity Mode.
     if int(plist['emitterType']) == 0 :
@@ -132,6 +137,7 @@ def _generate_cpp(plist, options) :
         ScriptName      = options['script_name'],
         ClassName       = options['output_file_name'],
         IncludeHeader   = './' + header_fname,
+        Namespace       = _gen_cpp_namespace(options['namespace']),
 
         # Particle properties.
         TotalParticles              = _safeget(plist, 'maxParticles', 100),
