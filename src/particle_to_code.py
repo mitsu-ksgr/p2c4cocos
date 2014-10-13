@@ -21,12 +21,12 @@ kGenLang_Lua    = 'lua'
 def parseArgs():
     parser = argparse.ArgumentParser(
         prog = kScriptName,
-        description = 'Convert the ParticleSystem.plist to C++ sources for cocos2d-x v3.x!',
+        description = 'Convert the ParticleSystem.plist to source codes for cocos2d-x v3.x!',
         version = '1.0.0')
     parser.add_argument('plist_path',
             help='Path to plist-file of the Particle System.')
     parser.add_argument('-o', '--output', nargs=1, default=None,
-            help='Output file name.')
+            help='Output directory.')
     parser.add_argument('-l', '--language', nargs=1, default=None,
             help='Language of output file.\nSelect from {0}. Default is "{1}".'.format(
                 [kGenLang_CPP, kGenLang_JS, kGenLang_Lua], kGenLang_CPP))
@@ -48,13 +48,11 @@ def main() :
     opt_lang = kGenLang_CPP if args.language is None else args.language[0]
     opt_lang = opt_lang.lower()
 
-    # output file name.
-    opt_output_fname = ''
-    if opt_output[-1] == '/' :
-        opt_output_fname = args.plist_path[args.plist_path.rfind('/') + 1:]
-    else :
-        opt_output_fname =  opt_output[opt_output.rfind('/') + 1:]
+    # output dir
+    opt_output += ('' if opt_output[-1] == '/' else '/')
 
+    # output file name.
+    opt_output_fname = args.plist_path[args.plist_path.rfind('/') + 1:]
     if opt_output_fname.rfind('.') > 0 :
         opt_output_fname = opt_output_fname[:opt_output_fname.rfind('.')]
 
