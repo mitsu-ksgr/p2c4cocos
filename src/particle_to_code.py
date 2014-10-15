@@ -15,6 +15,7 @@ kGenLang_CPP    = 'cpp'
 kGenLang_JS     = 'js'
 kGenLang_Lua    = 'lua'
 
+kSupportLangs = [kGenLang_CPP]
 
 ################################################################################
 #   Arguments Parser
@@ -29,7 +30,7 @@ def parseArgs():
             help='Output directory.')
     parser.add_argument('-l', '--language', nargs=1, default=None,
             help='Language of output file.\nSelect from {0}. Default is "{1}".'.format(
-                [kGenLang_CPP, kGenLang_JS, kGenLang_Lua], kGenLang_CPP))
+                kSupportLangs, kGenLang_CPP))
     parser.add_argument('-n', '--namespace', nargs=1, default=None,
             help='[C++] Specify the namespace that generated code belongs.')
     return parser.parse_args()
