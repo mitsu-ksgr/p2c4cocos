@@ -24,57 +24,57 @@ bool {Namespace}{ClassName}::initWithTotalParticles(int number_of_particles)
     this->_configName = "{ConfigName}";
 
     // Angle
-    this->_angle    = {Angle}f;
-    this->_angleVar = {AngleVariance}f;
+    this->_angle    = {Angle};
+    this->_angleVar = {AngleVariance};
 
     // Duration
-    this->_duration = {Duration}f;
+    this->_duration = {Duration};
 
     // Blend Function
     this->_blendFunc.src = {BlendFuncSource};
     this->_blendFunc.dst = {BlendFuncDestination};
 
     // Color
-    this->_startColor.r     = {StartColorRed}f;
-    this->_startColor.g     = {StartColorGreen}f;
-    this->_startColor.b     = {StartColorBlue}f;
-    this->_startColor.a     = {StartColorAlpha}f;
-    this->_startColorVar.r  = {StartColorVarianceRed}f;
-    this->_startColorVar.g  = {StartColorVarianceGreen}f;
-    this->_startColorVar.b  = {StartColorVarianceBlue}f;
-    this->_startColorVar.a  = {StartColorVarianceAlpha}f;
-    this->_endColor.r       = {FinishColorRed}f;
-    this->_endColor.g       = {FinishColorGreen}f;
-    this->_endColor.b       = {FinishColorBlue}f;
-    this->_endColor.a       = {FinishColorAlpha}f;
-    this->_endColorVar.r    = {FinishColorVarianceRed}f;
-    this->_endColorVar.g    = {FinishColorVarianceGreen}f;
-    this->_endColorVar.b    = {FinishColorVarianceBlue}f;
-    this->_endColorVar.a    = {FinishColorVarianceAlpha}f;
+    this->_startColor.r     = {StartColorRed};
+    this->_startColor.g     = {StartColorGreen};
+    this->_startColor.b     = {StartColorBlue};
+    this->_startColor.a     = {StartColorAlpha};
+    this->_startColorVar.r  = {StartColorVarianceRed};
+    this->_startColorVar.g  = {StartColorVarianceGreen};
+    this->_startColorVar.b  = {StartColorVarianceBlue};
+    this->_startColorVar.a  = {StartColorVarianceAlpha};
+    this->_endColor.r       = {FinishColorRed};
+    this->_endColor.g       = {FinishColorGreen};
+    this->_endColor.b       = {FinishColorBlue};
+    this->_endColor.a       = {FinishColorAlpha};
+    this->_endColorVar.r    = {FinishColorVarianceRed};
+    this->_endColorVar.g    = {FinishColorVarianceGreen};
+    this->_endColorVar.b    = {FinishColorVarianceBlue};
+    this->_endColorVar.a    = {FinishColorVarianceAlpha};
 
     // Particle Size
-    this->_startSize    = {StartParticleSize}f;
-    this->_startSizeVar = {StartParticleSizeVariance}f;
-    this->_endSize      = {FinishParticleSize}f;
-    this->_endSizeVar   = {FinishParticleSizeVariance}f;
+    this->_startSize    = {StartParticleSize};
+    this->_startSizeVar = {StartParticleSizeVariance};
+    this->_endSize      = {FinishParticleSize};
+    this->_endSizeVar   = {FinishParticleSizeVariance};
 
     // Position
-    this->setPosition(Vec2({SourcePositionX}f, {SourcePositionY}f));
-    this->_posVar.x = {SourcePositionVarianceX}f;
-    this->_posVar.y = {SourcePositionVarianceY}f;
+    this->setPosition(Vec2({SourcePositionX}, {SourcePositionY}));
+    this->_posVar.x = {SourcePositionVarianceX};
+    this->_posVar.y = {SourcePositionVarianceY};
 
     // Spinning
-    this->_startSpin    = {RotationStart}f;
-    this->_startSpinVar = {RotationStartVariance}f;
-    this->_endSpin      = {RotationEnd}f;
-    this->_endSpinVar   = {RotationEndVariance}f;
+    this->_startSpin    = {RotationStart};
+    this->_startSpinVar = {RotationStartVariance};
+    this->_endSpin      = {RotationEnd};
+    this->_endSpinVar   = {RotationEndVariance};
 
     // Emitter Mode
     {EmitterConfigCodes}
 
     // Life Span
-    this->_life     = {ParticleLifespan}f;
-    this->_lifeVar  = {ParticleLifespanVariance}f;
+    this->_life     = {ParticleLifespan};
+    this->_lifeVar  = {ParticleLifespanVariance};
 
     // Emission Rate
     this->_emissionRate = this->_totalParticles / this->_life;
@@ -88,7 +88,6 @@ bool {Namespace}{ClassName}::initWithTotalParticles(int number_of_particles)
     bool result = false;
     unsigned char *buffer = nullptr;
     unsigned char *deflated = nullptr;
-    Image *image = nullptr;
 
     do {{
         // Set a compatible default for the alpha transfer.
@@ -141,14 +140,14 @@ bool {Namespace}{ClassName}::initWithTotalParticles(int number_of_particles)
             // For android, we should retain it in -
             // VolatileTexture::addImage which invoked in -
             // Director::getInstance()->getTextureCache()->addUIImage().
-            image = new Image();
+            Image *image = new Image();
             if(!image) break;
             bool is_ok = image->initWithImageData(deflated, deflated_len);
             if(!is_ok) break;
             this->setTexture(
                 Director::getInstance()->getTextureCache()->addImage(
                     image, tex_name.c_str()));
-            image->release();
+            delete image; image = nullptr;
         }}
 
         this->_yCoordFlipped = {YCoordFlipped};
@@ -159,7 +158,7 @@ bool {Namespace}{ClassName}::initWithTotalParticles(int number_of_particles)
     }} while(false);
     free(buffer);   buffer = nullptr;
     free(deflated); deflated = nullptr;
-    CC_SAFE_DELETE(image);
+
     return result;
 }}
 
